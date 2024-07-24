@@ -9,8 +9,8 @@ DEPENDS = " \
     patchelf-native \
     protobuf \
 "
-SRCREV = "5bc9d26649cca274750ad3625bd93422617eed4b"
-SRC_URI = "git://github.com/tensorflow/tensorflow.git;branch=r2.16;protocol=https \
+SRCREV = "8038e44ea38bb889095afaaf6ad05e94adaed8d2"
+SRC_URI = "git://github.com/tensorflow/tensorflow.git;branch=master;protocol=https \
            file://0001-use-local-bazel-to-workaround-bazel-paralle-issue.patch \
            file://0001-third_party-eigen_archive-workaround-ice-failure-whi.patch \
            file://0001-drop-bazel_toolchains_repositories-to-support-offlin.patch \

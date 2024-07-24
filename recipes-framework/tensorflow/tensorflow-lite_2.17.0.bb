@@ -1,7 +1,6 @@
 include tensorflow.inc
 
-SRC_URI += " \
-           file://0001-add-yocto-toolchain-to-support-cross-compiling.patch \
+SRC_URI += "file://0001-add-yocto-toolchain-to-support-cross-compiling.patch \
            file://0001-fix-build-tensorflow-lite-examples-label_image-label.patch \
            file://0001-label_image-tweak-default-model-location.patch \
            file://0001-label_image.lite-tweak-default-model-location.patch \
@@ -11,13 +10,14 @@ SRC_URI += " \
            file://BUILD.yocto_compiler \
            file://cc_config.bzl.tpl \
            file://yocto_compiler_configure.bzl \
-          "
+           file://0001-Fix-eigen-patch.patch \
+           "
 
-SRC_URI += "https://storage.googleapis.com/download.tensorflow.org/models/inception_v3_2016_08_28_frozen.pb.tar.gz;name=model-inv3"
+
+
 SRC_URI[model-inv3.md5sum] = "a904ddf15593d03c7dd786d552e22d73"
 SRC_URI[model-inv3.sha256sum] = "7045b72a954af4dce36346f478610acdccbf149168fa25c78e54e32f0c723d6d"
 
-SRC_URI += "https://storage.googleapis.com/download.tensorflow.org/models/tflite/mobilenet_v1_1.0_224_quant_and_labels.zip;name=model-mobv1"
 SRC_URI[model-mobv1.md5sum] = "38ac0c626947875bd311ef96c8baab62"
 SRC_URI[model-mobv1.sha256sum] = "2f8054076cf655e1a73778a49bd8fd0306d32b290b7e576dda9574f00f186c0f"
 
@@ -28,6 +28,8 @@ RDEPENDS:${PN} += " \
 "
 
 do_configure:append () {
+    #ln -s ../../oe-workdir/recipe-sysroot/usr/include/ ${S}/third_party/flatbuffers/
+    #ln -s ../../oe-workdir/recipe-sysroot-native ${S}/third_party/flatbuffers/
     mkdir -p ${S}/third_party/toolchains/yocto/
     sed "s#%%CPU%%#${BAZEL_TARGET_CPU}#g" ${WORKDIR}/BUILD.in  > ${S}/third_party/toolchains/yocto/BUILD
     chmod 644 ${S}/third_party/toolchains/yocto/BUILD
@@ -91,17 +93,17 @@ do_install() {
         ${D}${sbindir}/label_image
 
     install -d ${D}${datadir}/label_image
-    install -m 644 ${WORKDIR}/imagenet_slim_labels.txt ${D}${datadir}/label_image
-    install -m 644 ${WORKDIR}/inception_v3_2016_08_28_frozen.pb \
-        ${D}${datadir}/label_image
-    install -m 644 ${S}/tensorflow/examples/label_image/data/grace_hopper.jpg \
-        ${D}${datadir}/label_image
+    #install -m 644 ${WORKDIR}/imagenet_slim_labels.txt ${D}${datadir}/label_image
+    #install -m 644 ${WORKDIR}/inception_v3_2016_08_28_frozen.pb \
+    #    ${D}${datadir}/label_image
+    #install -m 644 ${S}/tensorflow/examples/label_image/data/grace_hopper.jpg \
+    #    ${D}${datadir}/label_image
 
-    install -m 644 ${WORKDIR}/labels_mobilenet_quant_v1_224.txt ${D}${datadir}/label_image
-    install -m 644 ${WORKDIR}/mobilenet_v1_1.0_224_quant.tflite \
-        ${D}${datadir}/label_image
-    install -m 644 ${S}/tensorflow/lite/examples/label_image/testdata/grace_hopper.bmp \
-        ${D}${datadir}/label_image
+    #install -m 644 ${WORKDIR}/labels_mobilenet_quant_v1_224.txt ${D}${datadir}/label_image
+    #install -m 644 ${WORKDIR}/mobilenet_v1_1.0_224_quant.tflite \
+    #    ${D}${datadir}/label_image
+    #install -m 644 ${S}/tensorflow/lite/examples/label_image/testdata/grace_hopper.bmp \
+    #    ${D}${datadir}/label_image
 
 
     #echo "Installing pip package"

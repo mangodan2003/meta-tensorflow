@@ -2,6 +2,9 @@
 
 ## Overview
 ```
+
+This branch has (in theory at least) had patches applied that mediapipe normally applies via Bazel.
+
 TensorFlow is an open source software library for high performance numerical
 computation primarily used in machine learning. Its flexible architecture
 allows easy deployment of computation across a variety of types of platforms

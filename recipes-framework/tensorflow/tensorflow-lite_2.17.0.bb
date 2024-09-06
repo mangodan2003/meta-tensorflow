@@ -1,18 +1,19 @@
 include tensorflow.inc
 
-SRC_URI += "file://0001-add-yocto-toolchain-to-support-cross-compiling.patch \
+SRC_URI += "git://github.com/tensorflow/tensorflow.git;branch=master;protocol=https \
+           file://0001-add-yocto-toolchain-to-support-cross-compiling.patch \
            file://0001-fix-build-tensorflow-lite-examples-label_image-label.patch \
            file://0001-label_image-tweak-default-model-location.patch \
            file://0001-label_image.lite-tweak-default-model-location.patch \
            file://0001-CheckFeatureOrDie-use-warning-to-avoid-die.patch \
-           file://0001-support-32-bit-x64-and-arm-for-yocto.patch \
            file://BUILD.in \
            file://BUILD.yocto_compiler \
            file://cc_config.bzl.tpl \
            file://yocto_compiler_configure.bzl \
            file://0001-Fix-eigen-patch.patch \
+           file://0001-support-32-bit-x64-and-arm-for-yocto.patch \
+           file://0001-XNNPACK-support-32-bit-x86-add-patch-stanzas.patch \
            "
-
 
 
 SRC_URI[model-inv3.md5sum] = "a904ddf15593d03c7dd786d552e22d73"
@@ -70,6 +71,7 @@ do_compile () {
         --copt -DTF_LITE_DISABLE_X86_NEON --copt -DMESA_EGL_NO_X11_HEADERS \
         --define tflite_with_xnnpack=false \
         --repo_env=TF_PYTHON_VERSION=3.12 \
+        tensorflow/lite/delegates/gpu:gl_delegate \
         tensorflow/lite:libtensorflowlite.so \
         tensorflow/lite/tools/benchmark:benchmark_model \
         //tensorflow/lite/examples/label_image:label_image \

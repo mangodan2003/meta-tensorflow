@@ -9,7 +9,7 @@ DEPENDS = " \
     patchelf-native \
     protobuf \
 "
-SRCREV = "8038e44ea38bb889095afaaf6ad05e94adaed8d2"
+SRCREV = "117a62ac439ed87eb26f67208be60e01c21960de"
 SRC_URI = "git://github.com/tensorflow/tensorflow.git;branch=master;protocol=https \
            file://0001-use-local-bazel-to-workaround-bazel-paralle-issue.patch \
            file://0001-third_party-eigen_archive-workaround-ice-failure-whi.patch \
@@ -19,7 +19,6 @@ SRC_URI = "git://github.com/tensorflow/tensorflow.git;branch=master;protocol=htt
            file://0001-hardcode-go-SDKS.patch \
            file://0001-fix-build-failure.patch \
            file://0001-support-hermetic-Python.patch \
-           file://0001-make-hermetic-python3-support-offline-build.patch \
           "
 
 S = "${WORKDIR}/git"

@@ -31,26 +31,6 @@ index 0918af13243..3684d9a8757 100644
          cpu = "x86",
      ),
      visibility = ["//visibility:public"],
-diff --git a/tensorflow/workspace2.bzl b/tensorflow/workspace2.bzl
-index 9e4c2da9fe2..0aed90f6203 100644
---- a/tensorflow/workspace2.bzl
-+++ b/tensorflow/workspace2.bzl
-@@ -160,6 +160,7 @@ def _tf_repositories():
-         name = "XNNPACK",
-         sha256 = "256ab4034e93bdeea2e1216cd8361a85bd4ee4884a89bf5e4e142abcdc796805",
-         strip_prefix = "XNNPACK-50037f8072731a2cc30a961b96e199ad691887e4",
-+        patch_file = ["//third_party:0001-XNNPACK-support-32-bit-x86.patch"],
-         urls = tf_mirror_urls("https://github.com/google/XNNPACK/archive/50037f8072731a2cc30a961b96e199ad691887e4.zip"),
-     )
-     # LINT.ThenChange(//tensorflow/lite/tools/cmake/modules/xnnpack.cmake)
-@@ -182,6 +183,7 @@ def _tf_repositories():
-         name = "cpuinfo",
-         strip_prefix = "cpuinfo-ef634603954d88d2643d5809011288b890ac126e",
-         sha256 = "e07512a11e1c71687359a133f49d60583d7465b737fe5dbe11f461c9aaa72a2b",
-+        patch_file = ["//third_party:0001-cpuinfo-support-32-bit-x86.patch"],
-         urls = tf_mirror_urls("https://github.com/pytorch/cpuinfo/archive/ef634603954d88d2643d5809011288b890ac126e.zip"),
-     )
- 
 diff --git a/third_party/0001-XNNPACK-support-32-bit-x86.patch b/third_party/0001-XNNPACK-support-32-bit-x86.patch
 new file mode 100644
 index 00000000000..9d7e91ff9fe

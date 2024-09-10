@@ -69,12 +69,14 @@ do_compile () {
     ${BAZEL} build \
         ${CUSTOM_BAZEL_FLAGS} \
         --copt -DTF_LITE_DISABLE_X86_NEON --copt -DMESA_EGL_NO_X11_HEADERS \
-        --define tflite_with_xnnpack=false \
+        --define tflite_with_xnnpack=true \
+        --define create_op_resolver_with_builtin_ops=true \
         --repo_env=TF_PYTHON_VERSION=3.12 \
         tensorflow/lite/delegates/gpu:gl_delegate \
         tensorflow/lite:libtensorflowlite.so \
         tensorflow/lite/tools/benchmark:benchmark_model \
         //tensorflow/lite/examples/label_image:label_image \
+        //tensorflow/lite/c:tensorflowlite_c \
         ${TF_TARGET_EXTRA}
 
     # build pip package
@@ -90,6 +92,9 @@ do_install() {
     install -d ${D}${sbindir}
     install -m 755 ${S}/bazel-bin/tensorflow/lite/tools/benchmark/benchmark_model \
         ${D}${sbindir}
+
+    install -m 644 ${S}/bazel-bin/tensorflow/lite/libtensorflowlite_c.so \
+        ${D}${libdir}
 
     install -m 755 ${S}/bazel-bin/tensorflow/lite/examples/label_image/label_image \
         ${D}${sbindir}/label_image

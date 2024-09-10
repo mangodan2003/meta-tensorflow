@@ -93,7 +93,7 @@ do_install() {
     install -m 755 ${S}/bazel-bin/tensorflow/lite/tools/benchmark/benchmark_model \
         ${D}${sbindir}
 
-    install -m 644 ${S}/bazel-bin/tensorflow/lite/libtensorflowlite_c.so \
+    install -m 644 ${S}/bazel-bin/tensorflow/lite/c/libtensorflowlite_c.so \
         ${D}${libdir}
 
     install -m 755 ${S}/bazel-bin/tensorflow/lite/examples/label_image/label_image \
